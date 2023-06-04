@@ -1,47 +1,29 @@
 package entidad;
 
+import java.util.Random;
 
-//1. Crear la clase Gordito que contenga como atributos los datos que se le registra al paciente
 public class Gordito {
-    //Atributos
-    private String RUT_Paciente;
-    private String NOMBRE_Paciente;
-    private int EDAD_Paciente;
-    private String FONO_Paciente;
-    private double[] PESOS_Paciente;
-    private double[] ALTURA_PAciente;
+        private String RUT_Paciente;
+        private String NOMBRE_Paciente;
+        private int EDAD_Paciente;
+        private String FONO_Paciente;
+        private int[] PESO_Mensual_Paciente;
 
-    //Constructor
+        public String getRUT_Paciente() {
+            return RUT_Paciente;
+        }
 
-    public Gordito(String RUT_Paciente, String NOMBRE_Paciente, int EDAD_Paciente, String FONO_Paciente) {
-        this.RUT_Paciente = RUT_Paciente;
-        this.NOMBRE_Paciente = NOMBRE_Paciente;
-        this.EDAD_Paciente = EDAD_Paciente;
-        this.FONO_Paciente = FONO_Paciente;
-        this.PESOS_Paciente = new double[12];
-        this.ALTURA_PAciente = new double[12];
+        public void setRUT_Paciente(String RUT_Paciente) {
+            this.RUT_Paciente = RUT_Paciente;
+        }
 
+        public String getNOMBRE_Paciente() {
+            return NOMBRE_Paciente;
+        }
 
-    }
-
-
-    //Accesadores y mutadores
-
-    public String getRUT_Paciente() {
-        return RUT_Paciente;
-    }
-
-    public void setRUT_Paciente(String RUT_Paciente) {
-        this.RUT_Paciente = RUT_Paciente;
-    }
-
-    public String getNOMBRE_Paciente() {
-        return NOMBRE_Paciente;
-    }
-
-    public void setNOMBRE_Paciente(String NOMBRE_Paciente) {
-        this.NOMBRE_Paciente = NOMBRE_Paciente;
-    }
+        public void setNOMBRE_Paciente(String NOMBRE_Paciente) {
+            this.NOMBRE_Paciente = NOMBRE_Paciente;
+        }
 
     public int getEDAD_Paciente() {
         return EDAD_Paciente;
@@ -52,31 +34,76 @@ public class Gordito {
     }
 
     public String getFONO_Paciente() {
-        return FONO_Paciente;
-    }
+            return FONO_Paciente;
+        }
 
-    public void setFONO_Paciente(String FONO_Paciente) {
-        this.FONO_Paciente = FONO_Paciente;
-    }
+        public void setFONO_Paciente(String FONO_Paciente) {
+            this.FONO_Paciente = FONO_Paciente;
+        }
 
-    public double[] getPESOS_Paciente() {
-        return PESOS_Paciente;
-    }
+        public int[] getPESO_Mensual_Paciente() {
+            return PESO_Mensual_Paciente;
+        }
 
-    public void setPESOS_Paciente(double[] PESOS_Paciente) {
-        this.PESOS_Paciente = PESOS_Paciente;
-    }
+        public void setPESO_Mensual_Paciente(int[] PESO_Mensual_Paciente) {
+            this.PESO_Mensual_Paciente = PESO_Mensual_Paciente;
+        }
 
-    //Peso Promedio (pesosPromedio)
-    public double pesosPromedio(){
-        double suma = 0;
-        for (double peso: PESOS_Paciente){
-            suma = suma + peso;
-        } return suma/ PESOS_Paciente.length;
-    }
+        public Gordito(String RUT_Paciente, String NOMBRE_Paciente, int edad, String FONO_Paciente, int[] PESO_Mensual_Paciente) {
+            this.RUT_Paciente = RUT_Paciente;
+            this.NOMBRE_Paciente = NOMBRE_Paciente;
+            this.EDAD_Paciente = EDAD_Paciente;
+            this.FONO_Paciente = FONO_Paciente;
+            this.PESO_Mensual_Paciente = new int[12];
+            for(int P = 0; P < PESO_Mensual_Paciente.length; P++){
+                PESO_Mensual_Paciente[P] = (int) (Math.random() * (250-75)+1);
+            }
 
-    //IMC (indiceMasaCorporal)
-    public double indiceMasaCorporal(){
+        }
 
+        public double pesoPromedio(){
+            int suma = 0;
+            for(int peso : PESO_Mensual_Paciente){
+                suma += peso;
+            }
+            return (double) suma / PESO_Mensual_Paciente.length;
+        }
+
+        public double  indiceMasaCorporal(int mes, double estatura){
+            double peso = PESO_Mensual_Paciente[mes - 1];
+            return peso / Math.pow(estatura, 2);
+        }
+
+        public int[] masDeXKilos(int x){
+            int count = 0;
+            for(int peso : PESO_Mensual_Paciente){
+                if(peso > 0){
+                    count++;
+                }
+            }
+            if (count == 0){
+                return null;
+            }else{
+                int[] meses = new int[count];
+                int index = 0;
+                for(int i = 0; i < PESO_Mensual_Paciente.length; i++){
+                    if(PESO_Mensual_Paciente[i] > x){
+                        meses[index] = i +1;
+                        index++;
+                    }
+                }
+                return meses;
+            }
+        }
+
+        public String ultimoMes(double estatura){
+            double IMC = indiceMasaCorporal(12, estatura);
+            if(IMC < 18.5){
+                return  "Normal";
+            } else if (IMC < 25) {
+                return "Sobrepreso";
+            } else {
+                return "Obeso";
+            }
+        }
     }
-}
