@@ -1,6 +1,7 @@
 package entidad;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Gordito {
         private String RUT_Paciente;
@@ -9,21 +10,30 @@ public class Gordito {
         private String FONO_Paciente;
         private int[] PESO_Mensual_Paciente;
 
-        public String getRUT_Paciente() {
-            return RUT_Paciente;
-        }
+    public Gordito(String RUT_Paciente, String NOMBRE_Paciente, int EDAD_Paciente, String FONO_Paciente, int[] PESO_Mensual_Paciente) {
+        this.RUT_Paciente = RUT_Paciente;
+        this.NOMBRE_Paciente = NOMBRE_Paciente;
+        this.EDAD_Paciente = EDAD_Paciente;
+        this.FONO_Paciente = FONO_Paciente;
+        this.PESO_Mensual_Paciente = PESO_Mensual_Paciente;
 
-        public void setRUT_Paciente(String RUT_Paciente) {
-            this.RUT_Paciente = RUT_Paciente;
-        }
+    }
 
-        public String getNOMBRE_Paciente() {
-            return NOMBRE_Paciente;
-        }
+    public String getRUT_Paciente() {
+        return RUT_Paciente;
+    }
 
-        public void setNOMBRE_Paciente(String NOMBRE_Paciente) {
-            this.NOMBRE_Paciente = NOMBRE_Paciente;
-        }
+    public void setRUT_Paciente(String RUT_Paciente) {
+        this.RUT_Paciente = RUT_Paciente;
+    }
+
+    public String getNOMBRE_Paciente() {
+        return NOMBRE_Paciente;
+    }
+
+    public void setNOMBRE_Paciente(String NOMBRE_Paciente) {
+        this.NOMBRE_Paciente = NOMBRE_Paciente;
+    }
 
     public int getEDAD_Paciente() {
         return EDAD_Paciente;
@@ -34,34 +44,22 @@ public class Gordito {
     }
 
     public String getFONO_Paciente() {
-            return FONO_Paciente;
-        }
+        return FONO_Paciente;
+    }
 
-        public void setFONO_Paciente(String FONO_Paciente) {
-            this.FONO_Paciente = FONO_Paciente;
-        }
+    public void setFONO_Paciente(String FONO_Paciente) {
+        this.FONO_Paciente = FONO_Paciente;
+    }
 
-        public int[] getPESO_Mensual_Paciente() {
-            return PESO_Mensual_Paciente;
-        }
+    public int[] getPESO_Mensual_Paciente() {
+        return PESO_Mensual_Paciente;
+    }
 
-        public void setPESO_Mensual_Paciente(int[] PESO_Mensual_Paciente) {
-            this.PESO_Mensual_Paciente = PESO_Mensual_Paciente;
-        }
+    public void setPESO_Mensual_Paciente(int[] PESO_Mensual_Paciente) {
+        this.PESO_Mensual_Paciente = PESO_Mensual_Paciente;
+    }
 
-        public Gordito(String RUT_Paciente, String NOMBRE_Paciente, int edad, String FONO_Paciente, int[] PESO_Mensual_Paciente) {
-            this.RUT_Paciente = RUT_Paciente;
-            this.NOMBRE_Paciente = NOMBRE_Paciente;
-            this.EDAD_Paciente = EDAD_Paciente;
-            this.FONO_Paciente = FONO_Paciente;
-            this.PESO_Mensual_Paciente = new int[12];
-            for(int P = 0; P < PESO_Mensual_Paciente.length; P++){
-                PESO_Mensual_Paciente[P] = (int) (Math.random() * (250-75)+1);
-            }
-
-        }
-
-        public double pesoPromedio(){
+    public double pesoPromedio(){
             int suma = 0;
             for(int peso : PESO_Mensual_Paciente){
                 suma += peso;
@@ -106,4 +104,32 @@ public class Gordito {
                 return "Obeso";
             }
         }
+
+    public static Gordito crearPaciente() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese los datos del paciente");
+
+        System.out.println("Ingrese el RUT del Paciente");
+        String RUT_Paciente = scanner.nextLine();
+
+        System.out.println("Ingrese el nombre del Paciente");
+        String NOMBRE = scanner.nextLine();
+
+        System.out.println("Ingrese la edad del Paciente");
+        int EDAD = scanner.nextInt();
+        scanner.nextLine(); // Consumir el carácter de nueva línea dejado por nextInt()
+
+        System.out.println("Ingrese el número de contacto");
+        String TELEFONO = scanner.nextLine();
+
+        int[] PESO = new int[12];
+        Random random = new Random();
+        for (int i = 0; i < 12; i++) {
+            PESO[i] = random.nextInt(250 - 70 + 1) + 70;
+        }
+
+        return new Gordito(RUT_Paciente, NOMBRE, EDAD, TELEFONO, PESO);
     }
+
+
+}

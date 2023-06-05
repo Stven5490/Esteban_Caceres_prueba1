@@ -1,7 +1,6 @@
 package interfaz;
 
 import entidad.Gordito;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -17,31 +16,30 @@ public class APP {
             switch (opcion){
                 case 1:
                     //Crear paciente
+                    gordito = Gordito.crearPaciente();
                     System.out.println("Ingresar el RUT del Paciente");
                     String RUT = scanner.nextLine();
                     System.out.println("Ingrese el nombre del Paciente");
                     String NOMBRE = scanner.nextLine();
-                    System.out.printf("Ingrese la edad del Paciente");
+                    System.out.println("Ingrese la edad del Paciente");
                     int EDAD = scanner.nextInt();
                     System.out.println("Ingrese el numero de contacto");
                     String TELEFONO = scanner.nextLine();
-                    for(int P = 0; P < gordito.getPESO_Mensual_Paciente().length; P++){
-                        System.out.println("Peso por mes " + (P+1) + ": " + gordito.getPESO_Mensual_Paciente()[P]);
-                    }
-
                     break;
                 case 2:
                     //Mostar datos del paciente
+
                     System.out.println("Datos del paciente:");
                     System.out.println("RUT:" + gordito.getRUT_Paciente());
                     System.out.println("Nombre:" + gordito.getNOMBRE_Paciente());
                     System.out.println("Edad: " + gordito.getEDAD_Paciente());
-                    System.out.println("Fono:" + gordito.getFONO_Paciente());
                     System.out.println("Pesos mensuales" + Arrays.toString(gordito.getPESO_Mensual_Paciente()));
+                    System.out.println("Fono:" + gordito.getFONO_Paciente());
+
                     break;
                 case 3:
                     //Mostrar peso promedio (Anual)
-                    System.out.println("Peso Promedio anual" + gordito.pesoPromedio());
+                    System.out.println("Peso Promedio anual " + gordito.pesoPromedio());
                 case 4:
                     //Ingresar de peso a comparar
                     System.out.println("Ingrese un peso a comparar");
@@ -77,4 +75,6 @@ public class APP {
         System.out.println("Favor ingrese una opcion para continuar.........:");
         return Leer.datoInt();
     }
+
+
 }
